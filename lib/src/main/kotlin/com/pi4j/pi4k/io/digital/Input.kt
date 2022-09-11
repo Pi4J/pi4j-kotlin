@@ -8,7 +8,7 @@ import com.pi4j.pi4k.utils.Provider
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>) on 10/9/22
  */
 
-inline fun Context.digitalInput(address: Int, block: DigitalInputConfigBuilder.() -> Unit) =
+inline fun Context.digitalInput(address: Int, block: DigitalInputConfigBuilder.() -> Unit): DigitalInput =
     create(DigitalInput.newConfigBuilder(this).run {
         address(address)
         block()
