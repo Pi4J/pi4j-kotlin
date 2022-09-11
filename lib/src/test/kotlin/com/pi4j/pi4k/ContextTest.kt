@@ -20,7 +20,7 @@ internal class ContextTest {
     }
 
     @Test
-    fun testAutoShutdown() {
+    fun `test auto-shutdown`() {
         pi4j {
             println("I'm in pi4j auto context")
         }.also {
@@ -29,17 +29,13 @@ internal class ContextTest {
     }
 
     @Test
-    fun testGenerics() {
+    fun `test generics`() {
         context.run {
             assertEquals(hasPlatform(MockPlatform::class.java), hasPlatform<MockPlatform>())
-
             assertEquals(hasProvider(MockPwmProvider::class.java), hasProvider<MockPwmProvider>())
             assertSame(provider(MockPwmProvider::class.java), provider<MockPwmProvider>())
-            assertSame(provider("mock-pwm", MockPwmProvider::class.java), providerOf<MockPwmProvider>("mock-pwm"))
-            assertSame(getProvider("mock-pwm", MockPwmProvider::class.java), providerOf<MockPwmProvider>("mock-pwm"))
         }
     }
-
 
     @AfterTest
     fun tearDown() {

@@ -65,9 +65,6 @@ inline fun buildContext(builder: KontextBuilder.() -> Unit): Context {
 }
 
 inline fun <reified T : Platform> Context.hasPlatform() = hasPlatform(T::class.java)
-
 inline fun <reified T : Provider<*, *, *>> Context.hasProvider() = hasProvider(T::class.java)
-inline fun <reified T : Provider<*, *, *>> Context.getProvider(): T = getProvider(T::class.java)
 inline fun <reified T : Provider<*, *, *>> Context.provider(): T = provider(T::class.java)
-inline fun <reified T : Provider<*, *, *>> Context.providerOf(providerId: String): T = provider(providerId, T::class.java)
 
