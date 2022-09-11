@@ -1,10 +1,7 @@
-package com.pi4j.pi4k.digital
+package com.pi4j.pi4k.io.digital
 
 import com.pi4j.context.Context
-import com.pi4j.io.gpio.digital.DigitalInput
-import com.pi4j.io.gpio.digital.DigitalInputConfigBuilder
-import com.pi4j.io.gpio.digital.DigitalStateChangeEvent
-import com.pi4j.io.gpio.digital.DigitalStateChangeListener
+import com.pi4j.io.gpio.digital.*
 import com.pi4j.pi4k.utils.Provider
 
 /**
@@ -25,7 +22,19 @@ inline fun DigitalInput.listen(crossinline block: (DigitalStateChangeEvent<*>) -
         })
     }
 
-// TODO: listenOnState
+inline fun DigitalInput.onHigh(crossinline block: (DigitalStateChangeEvent<*>) -> Unit) =
+    run {
+        addListener(DigitalStateChangeListener { e: DigitalStateChangeEvent<*> ->
+            if (e.state() == DigitalState.HIGH) block(e)
+        })
+    }
+
+inline fun DigitalInput.onLow(crossinline block: (DigitalStateChangeEvent<*>) -> Unit) =
+    run {
+        addListener(DigitalStateChangeListener { e: DigitalStateChangeEvent<*> ->
+            if (e.state() == DigitalState.LOW) block(e)
+        })
+    }
 
 fun DigitalInputConfigBuilder.mockProvider() = apply {
     provider(Provider.MOCK_DIGITAL_INPUT.id)

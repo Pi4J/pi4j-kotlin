@@ -45,10 +45,15 @@ annotation class ContextBuilderMarker
     }
 }
 
-
-inline fun withinAutoContext(block: Context.() -> Unit): Context {
+/**
+ * Creates a new [Context] using [Pi4J.newAutoContext] and uses it in execution.
+ * Automatically calls [Context.shutdown] after [block] execution
+ * @param block runs on a [Context] Receiver
+ */
+inline fun pi4j(block: Context.() -> Unit): Context {
     val context = Pi4J.newAutoContext()
     context.run(block)
+    context.shutdown()
     return context
 }
 

@@ -1,4 +1,4 @@
-package com.pi4j.pi4k.digital
+package com.pi4j.pi4k.io.digital
 
 import com.pi4j.context.Context
 import com.pi4j.io.gpio.digital.*
@@ -22,7 +22,20 @@ inline fun DigitalOutput.listen(crossinline block: (DigitalStateChangeEvent<*>) 
         })
     }
 
-// TODO: listenOnState
+inline fun DigitalOutput.onHigh(crossinline block: (DigitalStateChangeEvent<*>) -> Unit) =
+    run {
+        addListener(DigitalStateChangeListener { e: DigitalStateChangeEvent<*> ->
+            if (e.state() == DigitalState.HIGH) block(e)
+        })
+    }
+
+inline fun DigitalOutput.onLow(crossinline block: (DigitalStateChangeEvent<*>) -> Unit) =
+    run {
+        addListener(DigitalStateChangeListener { e: DigitalStateChangeEvent<*> ->
+            if (e.state() == DigitalState.LOW) block(e)
+        })
+    }
+
 
 fun DigitalOutputConfigBuilder.mockProvider() = apply {
     provider(Provider.MOCK_DIGITAL_OUTPUT.id)

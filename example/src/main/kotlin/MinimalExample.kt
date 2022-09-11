@@ -1,6 +1,7 @@
-import com.pi4j.io.gpio.digital.*
-import com.pi4j.pi4k.digital.*
+import com.pi4j.io.gpio.digital.DigitalState
+import com.pi4j.io.gpio.digital.PullResistance
 import com.pi4j.pi4k.*
+import com.pi4j.pi4k.io.digital.*
 
 
 /*-
@@ -47,7 +48,7 @@ private var pressCount = 0
  */
 
 fun main() {
-    // Use Pi4J com.pi4j.pi4k.console wrapper/helper
+    // Use Pi4K com.pi4j.pi4k.console wrapper/helper
     console {
         // Print program title/header
         title("<-- The Pi4J Project -->", "Minimal Example project")
@@ -77,7 +78,7 @@ fun main() {
         // method will automatically load all available Pi4J
         // extensions found in the application's classpath which
         // may include 'Platforms' and 'I/O Providers'
-        withinAutoContext {
+        pi4j {
             // ------------------------------------------------------------
             // Output Pi4J Context information
             // ------------------------------------------------------------
@@ -99,11 +100,9 @@ fun main() {
                 pull(PullResistance.PULL_DOWN)
                 debounce(3000L)
                 mockProvider()
-            }.listen {
-                if (it.state() == DigitalState.LOW) {
-                    pressCount++
-                    +"Button was pressed for the ${pressCount}th time"
-                }
+            }.onLow {
+                pressCount++
+                +"Button was pressed for the ${pressCount}th time"
             }
 
             digitalOutput(PIN_LED) {
@@ -114,7 +113,7 @@ fun main() {
                 mockProvider()
             }.run {
                 // OPTIONAL: print the registry
-                printRegistry(this@withinAutoContext)
+                printRegistry(this@pi4j)
                 while (pressCount < 5) {
                     if (equals(DigitalState.HIGH)) {
                         +"LED low"
@@ -123,7 +122,7 @@ fun main() {
                         +"LED high"
                         high()
                     }
-                    Thread.sleep((500 / (pressCount + 1)).toLong())
+                    Thread.sleep((500L / (pressCount + 1)))
                 }
             }
             // ------------------------------------------------------------
@@ -136,7 +135,7 @@ fun main() {
             // manner. Terminate will also ensure that any background
             // threads/processes are cleanly shutdown and any used memory
             // is returned to the system.
-            shutdown()
+            // shutdown() is called automatically after the block execution
         }
     }
 }
