@@ -11,9 +11,13 @@ repositories {
 
 dependencies {
     compileOnly("com.pi4j:pi4j-core:2.2.0")
+    testImplementation("com.pi4j:pi4j-core:2.2.0")
     compileOnly("com.pi4j:pi4j-plugin-mock:2.2.0")
+    testImplementation("com.pi4j:pi4j-plugin-mock:2.2.0")
     compileOnly("org.slf4j:slf4j-api:1.7.32")
+    testImplementation("org.slf4j:slf4j-api:1.7.32")
     compileOnly("org.slf4j:slf4j-simple:1.7.32")
+    testImplementation("org.slf4j:slf4j-simple:1.7.32")
     testImplementation(kotlin("test"))
 }
 
