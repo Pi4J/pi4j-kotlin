@@ -203,8 +203,8 @@ Using the `console` function, you can create a `Console` object and use it to pr
 
 ```kotlin
 consolse {
-    +"This will be printed a new line"
-    box("this will be printed inside a box")
+    +"This will be printed as a new line"
+    box("This will be printed inside a box")
     +"Another line because I really like it"
 }
 ```
