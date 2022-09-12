@@ -68,7 +68,7 @@ pi4j {
 ```
 
 You don't need to call `shutdown()`, it's called automatically at the end of the block.  
-You can think of `pi4j` block as your entire routine/ program.
+You can think of the `pi4j` block as your entire routine/ program.
 
 #### Custom Context
 
@@ -173,7 +173,7 @@ analogInput(address = 24) {
 }
 ```
 
-However, there Analog I/O get their own unique treats:
+However, Analog I/O get their own unique treats:
 
 ```kotlin
 analogOutput(24).run {
