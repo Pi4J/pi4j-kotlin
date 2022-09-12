@@ -124,7 +124,6 @@ Using this DSL you get access to convenient functions like:
 
 ```kotlin
 digitalInput(24) {}.run {
-
     listen {
         // listens on state changes
         val currentState = it.state()
@@ -212,6 +211,7 @@ consolse {
 
 You also get other helper functions from the Minimal Context like `printLoadedPlatforms`, `printDefaultPlatform`
 , `printProviders`, and `printRegistry`.
+
 ---
 
 ### Platform
