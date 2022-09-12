@@ -44,3 +44,9 @@ fun DigitalOutputConfigBuilder.mockProvider() = apply {
 fun DigitalOutputConfigBuilder.piGpioProvider() = apply {
     provider(Provider.PI_GPIO_DIGITAL_OUTPUT.id)
 }
+
+
+val DigitalOutput.isLow
+    get() = state() == DigitalState.LOW
+val DigitalOutput.isHigh
+    get() = state() == DigitalState.HIGH

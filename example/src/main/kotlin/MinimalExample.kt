@@ -115,7 +115,7 @@ fun main() {
                 // OPTIONAL: print the registry
                 printRegistry(this@pi4j)
                 while (pressCount < 5) {
-                    if (equals(DigitalState.HIGH)) {
+                    if (isHigh) {
                         +"LED low"
                         low()
                     } else {
