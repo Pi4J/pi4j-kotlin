@@ -1,4 +1,4 @@
-package com.pi4j.pi4k
+package com.pi4j.ktx
 
 import com.pi4j.context.Context
 import com.pi4j.platform.Platform

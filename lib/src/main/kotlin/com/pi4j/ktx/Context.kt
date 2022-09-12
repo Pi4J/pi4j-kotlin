@@ -1,4 +1,4 @@
-package com.pi4j.pi4k
+package com.pi4j.ktx
 
 import com.pi4j.Pi4J
 import com.pi4j.config.Config

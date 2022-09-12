@@ -1,9 +1,11 @@
 plugins {
     kotlin("jvm") version "1.7.10"
 }
+val libVersion = "0.2"
+val libName = "ktx"
 
 group = "com.pi4j"
-version = "0.2"
+version = libVersion
 
 repositories {
     mavenCentral()

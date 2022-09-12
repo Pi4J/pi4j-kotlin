@@ -1,4 +1,4 @@
-package com.pi4j.pi4k.io.digital
+package com.pi4j.ktx.io.digital
 
 import com.pi4j.Pi4J
 import com.pi4j.context.Context

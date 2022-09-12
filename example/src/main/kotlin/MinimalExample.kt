@@ -1,7 +1,7 @@
 import com.pi4j.io.gpio.digital.DigitalState
 import com.pi4j.io.gpio.digital.PullResistance
-import com.pi4j.pi4k.*
-import com.pi4j.pi4k.io.digital.*
+import com.pi4j.ktx.*
+import com.pi4j.ktx.io.digital.*
 
 
 /*-
