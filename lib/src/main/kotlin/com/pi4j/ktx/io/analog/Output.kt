@@ -18,6 +18,9 @@ inline fun Context.analogOutput(address: Int, block: AnalogOutputConfigBuilder.(
         build()
     })
 
+fun Context.analogOutput(address: Int): AnalogOutput = analogOutput(address) {}
+
+
 inline fun AnalogOutput.listen(crossinline block: (AnalogValueChangeEvent<*>) -> Unit) =
     run {
         addListener(AnalogValueChangeListener { e: AnalogValueChangeEvent<*> ->

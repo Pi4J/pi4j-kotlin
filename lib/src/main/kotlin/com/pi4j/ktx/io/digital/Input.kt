@@ -15,6 +15,8 @@ inline fun Context.digitalInput(address: Int, block: DigitalInputConfigBuilder.(
         build()
     })
 
+fun Context.digitalInput(address: Int): DigitalInput = digitalInput(address) {}
+
 inline fun DigitalInput.listen(crossinline block: (DigitalStateChangeEvent<*>) -> Unit) =
     run {
         addListener(DigitalStateChangeListener { e: DigitalStateChangeEvent<*> ->

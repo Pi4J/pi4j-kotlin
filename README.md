@@ -123,7 +123,7 @@ digitalOutput(22) {
 Using this DSL you get access to convenient functions like:
 
 ```kotlin
-digitalInput(24) {}.run {
+digitalInput(24).run {
     listen {
         // listens on state changes
         val currentState = it.state()
@@ -176,7 +176,7 @@ analogInput(address = 24) {
 However, there Analog I/O get their own unique treats:
 
 ```kotlin
-analogOutput(24) {}.run {
+analogOutput(24).run {
     whenInRange(0..5) {
         // fires when value is in the supplied range
     }

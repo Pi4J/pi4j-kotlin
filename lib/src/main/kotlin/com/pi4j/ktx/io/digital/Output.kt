@@ -15,6 +15,8 @@ inline fun Context.digitalOutput(address: Int, block: DigitalOutputConfigBuilder
         build()
     })
 
+fun Context.digitalOutput(address: Int): DigitalOutput = digitalOutput(address) {}
+
 inline fun DigitalOutput.listen(crossinline block: (DigitalStateChangeEvent<*>) -> Unit) =
     run {
         addListener(DigitalStateChangeListener { e: DigitalStateChangeEvent<*> ->

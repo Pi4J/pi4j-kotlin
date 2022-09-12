@@ -18,6 +18,8 @@ inline fun Context.analogInput(address: Int, block: AnalogInputConfigBuilder.() 
         build()
     })
 
+fun Context.analogInput(address: Int): AnalogInput = analogInput(address) {}
+
 inline fun AnalogInput.listen(crossinline block: (AnalogValueChangeEvent<*>) -> Unit) =
     run {
         addListener(AnalogValueChangeListener { e: AnalogValueChangeEvent<*> ->

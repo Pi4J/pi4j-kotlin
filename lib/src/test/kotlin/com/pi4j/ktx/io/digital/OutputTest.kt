@@ -24,7 +24,7 @@ internal class DigitalOutputTest {
     fun `test digital output creation`() {
         context.run {
             val javaPin = create(DigitalOutput.newConfigBuilder(this).address(24).id("test-pin").build())
-            val kotlinPin = digitalOutput(22) { }
+            val kotlinPin = digitalOutput(22)
 
             assertEquals(javaPin::class.java, kotlinPin::class.java)
             assertEquals(22, kotlinPin.address)
@@ -41,7 +41,7 @@ internal class DigitalOutputTest {
     @Test
     fun `test digital output listeners`() {
         context.run {
-            val kotlinPin = digitalOutput(22) {  }.run {
+            val kotlinPin = digitalOutput(22).run {
                 onLow {
                     assertEquals(DigitalState.LOW, it.state())
                 }

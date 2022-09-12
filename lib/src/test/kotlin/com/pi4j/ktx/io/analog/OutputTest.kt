@@ -23,7 +23,7 @@ internal class AnalogOutputTest {
     fun `test analog output creation`() {
         context.run {
             val javaPin = create(AnalogOutput.newConfigBuilder(this).address(24).id("test-pin").build())
-            val kotlinPin = analogOutput(22) { }
+            val kotlinPin = analogOutput(22)
 
             assertEquals(javaPin::class.java, kotlinPin::class.java)
             assertEquals(22, kotlinPin.address)
@@ -40,7 +40,7 @@ internal class AnalogOutputTest {
     @Test
     fun `test analog output listeners`() {
         context.run {
-            val kotlinPin = analogOutput(22) {}.run {
+            val kotlinPin = analogOutput(22).run {
 
                 onMax(0..5) {
                     assertEquals(5, it.value())

@@ -24,7 +24,7 @@ internal class DigitalInputTest {
     fun `test digital input creation`() {
         context.run {
             val javaPin = create(DigitalInput.newConfigBuilder(this).address(24).id("test-pin").build())
-            val kotlinPin = digitalInput(22) { }
+            val kotlinPin = digitalInput(22)
 
             assertEquals(javaPin::class.java, kotlinPin::class.java)
             assertEquals(22, kotlinPin.address)
