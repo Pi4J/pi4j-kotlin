@@ -25,10 +25,9 @@ internal class PlatformTest {
 
     @Test
     fun `test generics`() {
-        context.platform<MockPlatform>() .run {
+        context.platform<MockPlatform>().run {
             assertEquals(hasProvider(MockPwmProvider::class.java), hasProvider<MockPwmProvider>())
             assertSame(provider(MockPwmProvider::class.java), provider<MockPwmProvider>())
-            assertSame(getProvider("mock-pwm", MockPwmProvider::class.java), getProvider<MockPwmProvider>("mock-pwm"))
         }
     }
 
