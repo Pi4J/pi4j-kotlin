@@ -9,4 +9,8 @@ enum class Provider(val id: String) {
     MOCK_DIGITAL_OUTPUT("mock-digital-output"),
     PI_GPIO_DIGITAL_INPUT("pigpio-digital-input"),
     PI_GPIO_DIGITAL_OUTPUT("pigpio-digital-output"),
+    MOCK_ANALOG_INPUT("mock-analog-input"),
+    MOCK_ANALOG_OUTPUT("mock-analog-output"),
+    PI_GPIO_ANALOG_INPUT("pigpio-analog-input"),
+    PI_GPIO_ANALOG_OUTPUT("pigpio-analog-output"),
 }

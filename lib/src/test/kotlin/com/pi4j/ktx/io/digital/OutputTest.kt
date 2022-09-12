@@ -12,7 +12,7 @@ import kotlin.test.*
 /**
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>)
  */
-internal class OutputTest {
+internal class DigitalOutputTest {
     private lateinit var context: Context
 
     @BeforeTest
