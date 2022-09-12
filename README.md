@@ -195,6 +195,17 @@ analogOutput(24).run {
 }
 ```
 
+#### PWM
+PWM has its share of love as well: 
+
+```kotlin
+pwm(address = 24) {
+    name("Button")
+    mockProvider() // uses the mock provider
+    gpioProvider() // uses the gpio provider
+}
+```
+
 ---
 
 ### Console
