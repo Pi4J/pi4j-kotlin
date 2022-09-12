@@ -200,7 +200,8 @@ PWM has its share of love as well:
 
 ```kotlin
 pwm(address = 24) {
-    name("Button")
+    frequency(10_000)
+    dutyCycle(40)
     mockProvider() // uses the mock provider
     gpioProvider() // uses the gpio provider
 }
