@@ -22,7 +22,7 @@ console {
         name("Press button")
         pull(PullResistance.PULL_DOWN)
         debounce(3000L)
-        gpioProvider()
+        piGpioProvider()
       }.onLow {
         pressCount++
         +"Button was pressed for the ${pressCount}th time"
@@ -34,7 +34,7 @@ console {
         name("LED Flasher")
         shutdown(DigitalState.LOW)
         initial(DigitalState.LOW)
-        gpioProvider()
+        piGpioProvider()
       }.run {
         while (pressCount < 5) {
           if (isHigh) {
@@ -152,7 +152,7 @@ Also, when you need to specify a provider for the pin you're creating you can us
 ```kotlin
 digitalOutput(22) {
     mockProvider() // uses the mock provider
-    gpioProvider() // uses the gpio provider
+    piGpioProvider() // uses the pi_gpio provider
 }
 ```
 
@@ -164,7 +164,7 @@ There are common APIs between Analog I/O and Digital I/O like:
 analogInput(address = 24) {
     name("Button")
     mockProvider() // uses the mock provider
-    gpioProvider() // uses the gpio provider
+    piGpioProvider() // uses the pi_gpio provider
 }.run {
     listen {
         // listens on value changes
@@ -203,7 +203,7 @@ pwm(address = 24) {
     frequency(10_000)
     dutyCycle(40)
     mockProvider() // uses the mock provider
-    gpioProvider() // uses the gpio provider
+    piGpioProvider() // uses the pi_gpio provider
 }
 ```
 
