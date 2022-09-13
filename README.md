@@ -221,7 +221,7 @@ consolse {
 }
 ```
 
-You also get other helper functions from the Minimal Context like `printLoadedPlatforms`, `printDefaultPlatform`
+You also get other helper functions found in the Minimal Example like `printLoadedPlatforms`, `printDefaultPlatform`
 , `printProviders`, and `printRegistry`.
 
 ---
