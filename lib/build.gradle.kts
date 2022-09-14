@@ -54,6 +54,9 @@ publishing {
                         url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
+                issueManagement {
+                    url.set("https://github.com/Pi4J/pi4j-kotlin/issues")
+                }
                 developers {
                     developer {
                         id.set("mhashim6")
