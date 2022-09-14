@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.7.10"
     `java-library`
     `maven-publish`
+    signing
 }
 val libVersion = "0.2"
 val libName = "ktx"
@@ -23,6 +24,15 @@ dependencies {
     compileOnly("org.slf4j:slf4j-simple:1.7.32")
     testImplementation("org.slf4j:slf4j-simple:1.7.32")
     testImplementation(kotlin("test"))
+}
+
+signing {
+    if (hasProperty("signingPassphrase")) {
+        val signingKey: String? by project
+        val signingPassphrase: String? by project
+        useInMemoryPgpKeys(signingKey, signingPassphrase)
+        sign(publishing.publications)
+    }
 }
 
 publishing {
