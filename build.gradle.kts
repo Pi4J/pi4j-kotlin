@@ -5,8 +5,10 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
+val libVersion by extra("2.2.0-SNAPSHOT")
+
 group = "com.pi4j"
-version = "0.2"
+version = libVersion
 
 repositories {
     mavenCentral()

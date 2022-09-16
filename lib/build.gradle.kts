@@ -4,8 +4,8 @@ plugins {
     `maven-publish`
     signing
 }
-val libVersion = "0.2"
-val libName = "ktx"
+val libName = "pi4j-ktx"
+val libVersion: String by rootProject.extra
 
 group = "com.pi4j"
 version = libVersion
@@ -37,7 +37,7 @@ signing {
 
 publishing {
     repositories {
-        maven {
+        mavenLocal {
             name = "Local"
             url = uri("file://${buildDir}/local-repository")
         }
@@ -51,7 +51,7 @@ publishing {
             pom {
                 version = libVersion
                 artifactId = libName
-                name.set("Pi4J-Kotlin")
+                name.set("pi4j-ktx")
                 description.set("Kotlin DSL for Pi4J V2")
                 url.set("https://github.com/Pi4J/pi4j-kotlin")
                 organization {
