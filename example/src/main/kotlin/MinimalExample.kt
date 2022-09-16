@@ -1,3 +1,17 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import com.pi4j.io.gpio.digital.DigitalState
 import com.pi4j.io.gpio.digital.PullResistance
 import com.pi4j.ktx.*
@@ -8,7 +22,7 @@ import com.pi4j.ktx.io.digital.*
  * #%L
  * **********************************************************************
  * ORGANIZATION  :  Pi4J
- * PROJECT       :  Pi4K :: EXAMPLE  :: Kotlin Sample Code
+ * PROJECT       :  Pi4J-Kotlin :: EXAMPLE  :: Kotlin Sample Code
  * FILENAME      :  MinimalExample.kt
  *
  * This file is part of the Pi4J project. More information about
@@ -41,14 +55,14 @@ private var pressCount = 0
  *
  * @throws java.lang.Exception if any.
  *
- * This example fully describes the base usage of Pi4K by providing extensive comments in each step.
+ * This example fully describes the base usage of Pi4J-Kotlin by providing extensive comments in each step.
  *
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>)
  * @author Frank Delporte (<a href="https://www.webtechie.be">https://www.webtechie.be</a>)
  */
 
 fun main() {
-    // Use Pi4K com.pi4j.pi4k.console wrapper/helper
+    // Use Pi4J-Kotlin com.pi4j.pi4k.console wrapper/helper
     console {
         // Print program title/header
         title("<-- The Pi4J Project -->", "Minimal Example project")
