@@ -3,7 +3,7 @@ name: Release pi4j-kotlin
 on: workflow_dispatch
 
 jobs:
-  build-and-test:
+  release-pi4j-ktx:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout project sources
