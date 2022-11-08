@@ -15,7 +15,10 @@
 import com.pi4j.io.gpio.digital.DigitalState
 import com.pi4j.io.gpio.digital.PullResistance
 import com.pi4j.ktx.*
-import com.pi4j.ktx.io.digital.*
+import com.pi4j.ktx.io.digital.digitalInput
+import com.pi4j.ktx.io.digital.digitalOutput
+import com.pi4j.ktx.io.digital.onLow
+import com.pi4j.ktx.io.digital.piGpioProvider
 
 
 /*-
@@ -113,7 +116,7 @@ fun main() {
                 name("Press button")
                 pull(PullResistance.PULL_DOWN)
                 debounce(3000L)
-                mockProvider()
+                piGpioProvider()
             }.onLow {
                 pressCount++
                 +"Button was pressed for the ${pressCount}th time"
@@ -124,7 +127,7 @@ fun main() {
                 name("LED Flasher")
                 shutdown(DigitalState.LOW)
                 initial(DigitalState.LOW)
-                mockProvider()
+                piGpioProvider()
             }.run {
                 // OPTIONAL: print the registry
                 printRegistry(this@pi4j)
