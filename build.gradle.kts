@@ -5,7 +5,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
-val libVersion by extra("2.2.1")
+val libVersion by extra("2.2.1.1")
 
 group = "com.pi4j"
 version = libVersion
