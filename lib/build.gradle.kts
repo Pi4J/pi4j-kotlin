@@ -26,6 +26,11 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 signing {
     if (hasProperty("signingPassphrase")) {
         val signingKey: String? by project
@@ -79,6 +84,11 @@ publishing {
                             put("linkedin", "https://linkedin.com/in/mhashim6")
                         }
                     }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/Pi4J/pi4j-kotlin.git")
+                    developerConnection.set("scm:git:ssh://github.com:Pi4J:pi4j-kotlin.git")
+                    url.set("https://github.com/Pi4J/pi4j-kotlin/tree/master")
                 }
             }
         }
