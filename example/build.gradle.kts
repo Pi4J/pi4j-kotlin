@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
 //    implementation(project(":lib"))
-    implementation("com.pi4j:pi4j-ktx:2.2.1.1")
+    implementation("com.pi4j:pi4j-ktx:2.2.1.2")
     implementation("com.pi4j:pi4j-core:2.2.1")
     implementation("com.pi4j:pi4j-plugin-raspberrypi:2.2.1")
     implementation("com.pi4j:pi4j-plugin-pigpio:2.2.1")
