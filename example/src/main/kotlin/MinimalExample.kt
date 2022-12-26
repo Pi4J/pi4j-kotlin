@@ -19,6 +19,7 @@ import com.pi4j.ktx.io.digital.digitalInput
 import com.pi4j.ktx.io.digital.digitalOutput
 import com.pi4j.ktx.io.digital.onLow
 import com.pi4j.ktx.io.digital.piGpioProvider
+import java.lang.Thread.sleep
 
 
 /*-
@@ -132,14 +133,9 @@ fun main() {
                 // OPTIONAL: print the registry
                 printRegistry(this@pi4j)
                 while (pressCount < 5) {
-                    if (isHigh) {
-                        +"LED low"
-                        low()
-                    } else {
-                        +"LED high"
-                        high()
-                    }
-                    Thread.sleep((500L / (pressCount + 1)))
+                    +"LED ${state()}"
+                    toggle()
+                    sleep(500L / (pressCount + 1))
                 }
             }
             // ------------------------------------------------------------
