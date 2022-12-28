@@ -17,7 +17,13 @@ import com.pi4j.Pi4J
 import com.pi4j.context.Context
 import com.pi4j.plugin.mock.platform.MockPlatform
 import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.delay
 import org.junit.jupiter.api.Test
+import java.lang.System.currentTimeMillis
+import java.lang.Thread.currentThread
+import java.util.concurrent.Executors
 import kotlin.test.*
 
 /**
@@ -36,6 +42,44 @@ internal class ContextTest {
     fun `test auto-shutdown`() {
         pi4j {
             println("I'm in pi4j auto context")
+        }.also {
+            assertTrue { it.isShutdown }
+        }
+    }
+
+    @Test
+    fun `test pi4jAsync custom coroutine scope`() {
+        val executor = Executors.newSingleThreadExecutor()
+        var thread = currentThread().id
+        println(thread)
+        executor.execute {
+            thread = currentThread().id
+        }
+
+        pi4jAsync(CoroutineScope(executor.asCoroutineDispatcher())) {
+            println("I'm in pi4j auto context")
+
+            assertEquals(thread, currentThread().id)
+
+            val now = currentTimeMillis()
+            delay(1000L)
+            val delay = currentTimeMillis() - now
+            println("$delay")
+            assertTrue { delay in 1000L..1100L }
+        }.also {
+            assertTrue { it.isShutdown }
+        }
+    }
+
+    @Test
+    fun `test pi4jAsync coroutine scope`() {
+        val thread = currentThread().id
+        println(thread)
+
+        pi4jAsync {
+            println("I'm in pi4j auto context")
+            delay(1000L)
+            assertNotEquals(thread, currentThread().id)
         }.also {
             assertTrue { it.isShutdown }
         }
