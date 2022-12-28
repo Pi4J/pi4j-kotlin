@@ -28,4 +28,6 @@ enum class Provider(val id: String) {
     PI_GPIO_ANALOG_OUTPUT("pigpio-analog-output"),
     MOCK_PWM("mock-pwm"),
     PI_GPIO_PWM("pigpio-pwm"),
+    MOCK_I2C("mock-i2c"),
+    LINUX_FS_I2C("linuxfs-i2c"),
 }
