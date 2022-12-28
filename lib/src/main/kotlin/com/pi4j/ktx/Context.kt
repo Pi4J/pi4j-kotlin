@@ -33,10 +33,11 @@ import java.util.*
 annotation class ContextBuilderMarker
 
 @ContextBuilderMarker
- class KontextBuilder: ContextBuilder by ContextBuilder.newInstance() {
+class KontextBuilder : ContextBuilder by ContextBuilder.newInstance() {
     operator fun Platform.unaryPlus() {
         add(this)
     }
+
     operator fun Provider<out Provider<*, *, *>, out IO<*, *, *>, out Config<*>>?.unaryPlus() {
         add(this)
     }
@@ -44,15 +45,19 @@ annotation class ContextBuilderMarker
     operator fun Properties.unaryPlus() {
         add(this)
     }
+
     operator fun Pair<String, String>.unaryPlus() {
         addProperty(this.first, this.second)
     }
+
     operator fun File.unaryPlus() {
         addProperties(this)
     }
+
     operator fun Reader.unaryPlus() {
         addProperties(this)
     }
+
     operator fun InputStream.unaryPlus() {
         addProperties(this)
     }
