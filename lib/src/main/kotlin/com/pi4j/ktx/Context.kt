@@ -20,6 +20,10 @@ import com.pi4j.context.ContextBuilder
 import com.pi4j.io.IO
 import com.pi4j.platform.Platform
 import com.pi4j.provider.Provider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.InputStream
 import java.io.Reader
@@ -68,6 +72,24 @@ inline fun pi4j(block: Context.() -> Unit): Context {
     context.run(block)
     context.shutdown()
     return context
+}
+
+/**
+ * Coroutine variant of [pi4j]
+ *
+ * Creates a new [Context] using [Pi4J.newAutoContext] and uses it in execution.
+ * Automatically calls [Context.shutdown] after [block] execution
+ * @param scope within which the coroutines will run
+ * @param block runs on a [Context] Receiver
+ */
+fun pi4jAsync(scope: CoroutineScope = CoroutineScope(Dispatchers.IO), block: suspend Context.() -> Unit): Context {
+    return runBlocking {
+        pi4j {
+            scope.async {
+                block()
+            }.await()
+        }
+    }
 }
 
 inline fun buildContext(builder: KontextBuilder.() -> Unit): Context {

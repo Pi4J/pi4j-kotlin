@@ -22,6 +22,7 @@ dependencies {
     compileOnly("org.slf4j:slf4j-api:1.7.32")
     testImplementation("org.slf4j:slf4j-api:1.7.32")
     compileOnly("org.slf4j:slf4j-simple:1.7.32")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     testImplementation("org.slf4j:slf4j-simple:1.7.32")
     testImplementation(kotlin("test"))
 }
