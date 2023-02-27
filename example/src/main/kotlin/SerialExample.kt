@@ -1,13 +1,3 @@
-import com.pi4j.io.serial.FlowControl
-import com.pi4j.io.serial.Parity
-import com.pi4j.io.serial.StopBits
-import com.pi4j.ktx.console
-import com.pi4j.ktx.io.open
-import com.pi4j.ktx.io.piGpioSerialProvider
-import com.pi4j.ktx.io.serial
-import com.pi4j.ktx.pi4j
-import java.lang.Thread.sleep
-
 /*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +11,16 @@ import java.lang.Thread.sleep
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import com.pi4j.io.serial.FlowControl
+import com.pi4j.io.serial.Parity
+import com.pi4j.io.serial.StopBits
+import com.pi4j.ktx.console
+import com.pi4j.ktx.io.open
+import com.pi4j.ktx.io.piGpioSerialProvider
+import com.pi4j.ktx.io.serial
+import com.pi4j.ktx.pi4j
+import java.lang.Thread.sleep
 
 /**
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>) on 26/02/2023
