@@ -30,4 +30,6 @@ enum class Provider(val id: String) {
     PI_GPIO_PWM("pigpio-pwm"),
     MOCK_I2C("mock-i2c"),
     LINUX_FS_I2C("linuxfs-i2c"),
+    MOCK_SERIAL("mock-serial"),
+    PI_GPIO_SERIAL("pigpio-serial")
 }
