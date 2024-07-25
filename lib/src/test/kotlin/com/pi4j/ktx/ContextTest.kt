@@ -16,6 +16,7 @@ package com.pi4j.ktx
 import com.pi4j.Pi4J
 import com.pi4j.context.Context
 import com.pi4j.plugin.mock.platform.MockPlatform
+import com.pi4j.plugin.mock.provider.gpio.analog.MockAnalogInputProvider
 import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -35,7 +36,9 @@ internal class ContextTest {
 
     @BeforeTest
     fun setup() {
-        context = Pi4J.newAutoContext()
+        context = Pi4J.newContextBuilder()
+            .add(MockPwmProvider.newInstance())
+            .build();
     }
 
     @Test

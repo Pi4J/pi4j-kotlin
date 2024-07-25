@@ -17,6 +17,8 @@ import com.pi4j.Pi4J
 import com.pi4j.context.Context
 import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.gpio.digital.DigitalInput
+import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInputProvider
+import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
@@ -30,7 +32,9 @@ internal class DigitalInputTest {
 
     @BeforeTest
     fun setup() {
-        context = Pi4J.newAutoContext()
+        context = Pi4J.newContextBuilder()
+            .add(MockDigitalInputProvider.newInstance())
+            .build();
     }
 
     @Test

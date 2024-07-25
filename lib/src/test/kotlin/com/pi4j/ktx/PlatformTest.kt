@@ -33,12 +33,14 @@ internal class PlatformTest {
 
     @BeforeTest
     fun setup(){
-        context = Pi4J.newAutoContext()
+        context = Pi4J.newContextBuilder()
+            .add(MockPwmProvider.newInstance())
+            .build();
     }
 
     @Test
     fun `test generics`() {
-        context.platform<MockPlatform>().run {
+        context.run {
             assertEquals(hasProvider(MockPwmProvider::class.java), hasProvider<MockPwmProvider>())
             assertSame(provider(MockPwmProvider::class.java), provider<MockPwmProvider>())
         }

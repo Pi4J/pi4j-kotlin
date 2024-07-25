@@ -17,6 +17,7 @@ import com.pi4j.Pi4J
 import com.pi4j.context.Context
 import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.pwm.PwmConfigBuilder
+import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
@@ -32,7 +33,9 @@ internal class PwmTest {
 
     @BeforeTest
     fun setup() {
-        context = Pi4J.newAutoContext()
+        context = Pi4J.newContextBuilder()
+            .add(MockPwmProvider.newInstance())
+            .build();
     }
 
     @Test

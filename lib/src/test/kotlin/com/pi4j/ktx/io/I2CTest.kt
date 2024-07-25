@@ -19,6 +19,8 @@ import com.pi4j.context.Context
 import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.i2c.I2C
 import com.pi4j.io.i2c.I2CProvider
+import com.pi4j.plugin.mock.provider.i2c.MockI2CProvider
+import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.AfterTest
@@ -33,7 +35,9 @@ internal class I2CTest {
 
     @BeforeTest
     fun setup() {
-        context = Pi4J.newAutoContext()
+        context = Pi4J.newContextBuilder()
+            .add(MockI2CProvider.newInstance())
+            .build();
     }
 
     @Test

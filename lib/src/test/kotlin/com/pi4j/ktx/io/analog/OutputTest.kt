@@ -17,6 +17,8 @@ import com.pi4j.Pi4J
 import com.pi4j.context.Context
 import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.gpio.analog.AnalogOutput
+import com.pi4j.plugin.mock.provider.gpio.analog.MockAnalogOutputProvider
+import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
@@ -29,7 +31,9 @@ internal class AnalogOutputTest {
 
     @BeforeTest
     fun setup() {
-        context = Pi4J.newAutoContext()
+        context = Pi4J.newContextBuilder()
+            .add(MockAnalogOutputProvider.newInstance())
+            .build();
     }
 
     @Test
