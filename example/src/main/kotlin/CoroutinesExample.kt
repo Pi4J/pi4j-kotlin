@@ -42,7 +42,6 @@ fun main() {
                 name("Press button")
                 pull(PullResistance.PULL_DOWN)
                 debounce(3000L)
-                piGpioProvider()
             }.onLow {
                 pressCount++
                 +"Button was pressed for the ${pressCount}th time"
@@ -53,7 +52,6 @@ fun main() {
                 name("LED Flasher")
                 shutdown(DigitalState.LOW)
                 initial(DigitalState.LOW)
-                piGpioProvider()
             }.run {
                 while (pressCount < 5) {
                     +"LED ${state()}"
