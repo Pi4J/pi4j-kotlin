@@ -16,16 +16,19 @@ repositories {
 }
 
 dependencies {
+    val pi4jVersion: String by rootProject.extra
+    val slf4jVersion: String by rootProject.extra
+    val kotlinCoroutinesVersion: String by rootProject.extra
     implementation(project(":lib"))
-    implementation("com.pi4j:pi4j-core:2.6.0")
-    implementation("com.pi4j:pi4j-plugin-raspberrypi:2.6.0")
-    implementation("com.pi4j:pi4j-plugin-pigpio:2.6.0")
-    implementation("com.pi4j:pi4j-plugin-gpiod:2.6.0")
-    implementation("com.pi4j:pi4j-plugin-linuxfs:2.6.0")
-    implementation("com.pi4j:pi4j-plugin-mock:2.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
-    implementation("org.slf4j:slf4j-api:2.0.12")
-    implementation("org.slf4j:slf4j-simple:2.0.12")
+    implementation("com.pi4j:pi4j-core:$pi4jVersion")
+    implementation("com.pi4j:pi4j-plugin-raspberrypi:$pi4jVersion")
+    implementation("com.pi4j:pi4j-plugin-pigpio:$pi4jVersion")
+    implementation("com.pi4j:pi4j-plugin-gpiod:$pi4jVersion")
+    implementation("com.pi4j:pi4j-plugin-linuxfs:$pi4jVersion")
+    implementation("com.pi4j:pi4j-plugin-mock:$pi4jVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
+    implementation("org.slf4j:slf4j-api:$slf4jVersion")
+    implementation("org.slf4j:slf4j-simple:$slf4jVersion")
     testImplementation(kotlin("test"))
 }
 

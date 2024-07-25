@@ -6,10 +6,13 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
 
-val libVersion by extra("2.6.0")
+// Set a property
+extra["pi4jVersion"] = "2.6.0"
+extra["slf4jVersion"] = "2.0.12"
+extra["kotlinCoroutinesVersion"] = "1.6.4"
 
 group = "com.pi4j"
-version = libVersion
+version = "2.6.0"
 
 repositories {
     mavenCentral()

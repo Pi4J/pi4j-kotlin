@@ -5,25 +5,26 @@ plugins {
     signing
 }
 val libName = "pi4j-ktx"
-val libVersion: String by rootProject.extra
 
 group = "com.pi4j"
-version = libVersion
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compileOnly("com.pi4j:pi4j-core:2.6.0")
-    testImplementation("com.pi4j:pi4j-core:2.6.0")
-    compileOnly("com.pi4j:pi4j-plugin-mock:2.6.0")
-    testImplementation("com.pi4j:pi4j-plugin-mock:2.6.0")
-    compileOnly("org.slf4j:slf4j-api:2.0.12")
-    testImplementation("org.slf4j:slf4j-api:2.0.12")
-    compileOnly("org.slf4j:slf4j-simple:2.0.12")
-    testImplementation("org.slf4j:slf4j-simple:2.0.12")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    val pi4jVersion: String by rootProject.extra
+    val slf4jVersion: String by rootProject.extra
+    val kotlinCoroutinesVersion: String by rootProject.extra
+    compileOnly("com.pi4j:pi4j-core:$pi4jVersion")
+    testImplementation("com.pi4j:pi4j-core:$pi4jVersion")
+    compileOnly("com.pi4j:pi4j-plugin-mock:$pi4jVersion")
+    testImplementation("com.pi4j:pi4j-plugin-mock:$pi4jVersion")
+    compileOnly("org.slf4j:slf4j-api:$slf4jVersion")
+    testImplementation("org.slf4j:slf4j-api:$slf4jVersion")
+    compileOnly("org.slf4j:slf4j-simple:$slf4jVersion")
+    testImplementation("org.slf4j:slf4j-simple:$slf4jVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     testImplementation(kotlin("test"))
 }
 
@@ -51,13 +52,14 @@ publishing {
         }
     }
     publications {
+        val pi4jVersion: String by rootProject.extra
         create<MavenPublication>(libName) {
             groupId = "com.pi4j"
             artifactId = libName
-            version = libVersion
+            version = pi4jVersion
             from(components["java"])
             pom {
-                version = libVersion
+                version = pi4jVersion
                 artifactId = libName
                 name.set("pi4j-ktx")
                 description.set("Kotlin DSL for Pi4J V2")
