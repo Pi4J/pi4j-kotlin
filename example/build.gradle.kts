@@ -8,7 +8,7 @@ group = "com.pi4j"
 version = "0.2"
 
 application {
-    mainClass.set("CoroutinesExampleKt")
+    mainClass.set("MinimalExampleKt")
 }
 
 repositories {
