@@ -7,6 +7,7 @@ For Pi4J V1 Kotlin Bindings, check [Pi4K](https://github.com/mhashim6/Pi4K) (no 
 [![Maven Central](https://img.shields.io/maven-central/v/com.pi4j/pi4j-ktx.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.pi4j%22%20AND%20a:%22pi4j-ktx%22)
 [![License](https://img.shields.io/github/license/pi4j/pi4j-v2)](http://www.apache.org/licenses/LICENSE-2.0)
 ![GitHub Actions build state](https://github.com/pi4j/pi4j-kotlin/workflows/Build%20pi4j-kotlin/badge.svg)
+[![libs.tech recommends](https://libs.tech/project/535721641/badge.svg)](https://libs.tech/project/535721641/pi4j-kotlin)
 
 ## Documentation
 Full documentation can be found on the [website](https://pi4j.com/kotlin/kotlin-api-docs/)
