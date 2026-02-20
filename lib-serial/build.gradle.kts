@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
     signing
 }
-val libName = "pi4j-ktx"
+val libName = "pi4j-ktx-serial"
 
 group = "com.pi4j"
 
@@ -13,18 +13,15 @@ repositories {
 }
 
 dependencies {
+    api(project(":lib"))
+    implementation("com.fazecast:jSerialComm:2.11.0")
     val pi4jVersion: String by rootProject.extra
     val slf4jVersion: String by rootProject.extra
-    val kotlinCoroutinesVersion: String by rootProject.extra
     compileOnly("com.pi4j:pi4j-core:$pi4jVersion")
-    testImplementation("com.pi4j:pi4j-core:$pi4jVersion")
-    compileOnly("com.pi4j:pi4j-plugin-mock:$pi4jVersion")
-    testImplementation("com.pi4j:pi4j-plugin-mock:$pi4jVersion")
     compileOnly("org.slf4j:slf4j-api:$slf4jVersion")
+    testImplementation("com.pi4j:pi4j-core:$pi4jVersion")
     testImplementation("org.slf4j:slf4j-api:$slf4jVersion")
-    compileOnly("org.slf4j:slf4j-simple:$slf4jVersion")
     testImplementation("org.slf4j:slf4j-simple:$slf4jVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutinesVersion")
     testImplementation(kotlin("test"))
 }
 
@@ -65,8 +62,8 @@ publishing {
             pom {
                 version = pi4jVersion
                 artifactId = libName
-                name.set("pi4j-ktx")
-                description.set("Kotlin DSL for Pi4J V2")
+                name.set("pi4j-ktx-serial")
+                description.set("Kotlin DSL for serial communication via jSerialComm")
                 url.set("https://github.com/Pi4J/pi4j-kotlin")
                 organization {
                     name.set("Pi4J")
@@ -111,7 +108,7 @@ tasks.getByName<Test>("test") {
 tasks.jar {
     manifest {
         attributes(
-            "Name" to "Pi4J-Kotlin",
+            "Name" to "Pi4J-Kotlin-Serial",
             "Organisation" to "Pi4J",
             "URL" to "https://github.com/Pi4J/pi4j-kotlin",
             "Author" to "mhashim6",

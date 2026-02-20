@@ -6,10 +6,12 @@ jobs:
   release-pi4j-ktx:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: gradle/gradle-build-action@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
-          gradle-version: 7.4.2
+          distribution: 'temurin'
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@v4
       - name: release project
         env:
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
@@ -18,4 +20,4 @@ jobs:
           ORG_GRADLE_PROJECT_signingPassphrase: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           ./gradlew build
-          ./gradlew  publishPi4j-ktxPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+          ./gradlew publishPi4j-ktxPublicationToSonatypeRepository publishPi4j-ktx-serialPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository

@@ -19,9 +19,10 @@ import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.gpio.digital.DigitalOutput
 import com.pi4j.io.gpio.digital.DigitalState
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalOutputProvider
-import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import kotlin.test.*
 
 /**
@@ -40,14 +41,14 @@ internal class DigitalOutputTest {
     @Test
     fun `test digital output creation`() {
         context.run {
-            val javaPin = create(DigitalOutput.newConfigBuilder(this).address(24).id("test-pin").build())
+            val javaPin = create(DigitalOutput.newConfigBuilder(this).bcm(24).id("test-pin").build())
             val kotlinPin = digitalOutput(22)
 
             assertEquals(javaPin::class.java, kotlinPin::class.java)
-            assertEquals(22, kotlinPin.address)
+            assertEquals(22, kotlinPin.bcm())
 
             assertThrows<IOAlreadyExistsException> {
-                create(DigitalOutput.newConfigBuilder(this).address(26).id("test-pin").build())
+                create(DigitalOutput.newConfigBuilder(this).bcm(26).id("test-pin").build())
                 digitalOutput(23) {
                     id("test-pin")
                 }
@@ -58,17 +59,20 @@ internal class DigitalOutputTest {
     @Test
     fun `test digital output listeners`() {
         context.run {
+            val latch = CountDownLatch(2)
             val kotlinPin = digitalOutput(22).run {
                 onLow {
                     assertEquals(DigitalState.LOW, it.state())
+                    latch.countDown()
                 }
                 onHigh {
                     assertEquals(DigitalState.HIGH, it.state())
+                    latch.countDown()
                 }
             }
             kotlinPin.low()
             kotlinPin.high()
-            Thread.sleep(1000L)
+            assertTrue(latch.await(2, TimeUnit.SECONDS), "Listeners should have fired")
         }
     }
 

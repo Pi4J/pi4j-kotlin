@@ -24,14 +24,14 @@ import com.pi4j.ktx.utils.Provider
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>) on 12/9/22
  */
 
-inline fun Context.analogInput(address: Int, block: AnalogInputConfigBuilder.() -> Unit): AnalogInput =
+inline fun Context.analogInput(bcm: Int, block: AnalogInputConfigBuilder.() -> Unit): AnalogInput =
     create(AnalogInput.newConfigBuilder(this).run {
-        address(address)
+        bcm(bcm)
         block()
         build()
     })
 
-fun Context.analogInput(address: Int): AnalogInput = analogInput(address) {}
+fun Context.analogInput(bcm: Int): AnalogInput = analogInput(bcm) {}
 
 inline fun AnalogInput.listen(crossinline block: (AnalogValueChangeEvent<*>) -> Unit) =
     run {

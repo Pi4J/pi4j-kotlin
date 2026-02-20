@@ -12,57 +12,31 @@
  * limitations under the License.
  */
 
-import com.pi4j.io.serial.FlowControl
-import com.pi4j.io.serial.Parity
-import com.pi4j.io.serial.StopBits
 import com.pi4j.ktx.console
-import com.pi4j.ktx.io.open
-import com.pi4j.ktx.io.piGpioSerialProvider
-import com.pi4j.ktx.io.serial
-import com.pi4j.ktx.pi4j
+import com.pi4j.ktx.io.serial.open
+import com.pi4j.ktx.io.serial.serial
 import java.lang.Thread.sleep
 
 /**
- * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>) on 26/02/2023
+ * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>)
  */
 
 fun main() {
-    pi4j {
-        serial("/dev/ttyS0") {
-            use_9600_N81()
-            dataBits_8()
-            parity(Parity.NONE)
-            stopBits(StopBits._1)
-            flowControl(FlowControl.NONE)
-            piGpioSerialProvider()
-        }.open {
-            console {
-                +"Waiting till serial port is open"
-                while (!isOpen) {
-                    print(".")
-                    sleep(250)
-                }
-                println()
-
-                +"Serial port is open"
-                startDaemon {
-                    inputStream.bufferedReader().use {
-                        while (true) {
-                            if (available() != 0) sleep(10)
-                            else buildString {
-                                (0 until available()).forEach { _ ->
-                                    readByte().let { b ->
-                                        // All non-string bytes are handled as line breaks
-                                        if (b < 32) return@forEach
-                                        else append(b.toInt().toChar())
-                                    }
-                                }
-                            }.also { +"Data: '$it'" }
-                        }
+    serial("/dev/ttyS0") {
+        baudRate = 9600
+        dataBits = 8
+    }.open {
+        console {
+            +"Serial port is open"
+            startDaemon {
+                inputStream.bufferedReader().use { reader ->
+                    while (true) {
+                        val line = reader.readLine() ?: break
+                        +"Data: '$line'"
                     }
                 }
-                while (isOpen) sleep(500)
             }
+            while (isOpen) sleep(500)
         }
     }
 }

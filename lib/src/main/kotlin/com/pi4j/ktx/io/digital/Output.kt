@@ -21,14 +21,14 @@ import com.pi4j.ktx.utils.Provider
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>) on 10/9/22
  */
 
-inline fun Context.digitalOutput(address: Int, block: DigitalOutputConfigBuilder.() -> Unit): DigitalOutput =
+inline fun Context.digitalOutput(bcm: Int, block: DigitalOutputConfigBuilder.() -> Unit): DigitalOutput =
     create(DigitalOutput.newConfigBuilder(this).run {
-        address(address)
+        bcm(bcm)
         block()
         build()
     })
 
-fun Context.digitalOutput(address: Int): DigitalOutput = digitalOutput(address) {}
+fun Context.digitalOutput(bcm: Int): DigitalOutput = digitalOutput(bcm) {}
 
 inline fun DigitalOutput.listen(crossinline block: (DigitalStateChangeEvent<*>) -> Unit) =
     run {
