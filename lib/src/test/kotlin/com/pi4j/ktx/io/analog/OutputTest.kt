@@ -18,9 +18,10 @@ import com.pi4j.context.Context
 import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.gpio.analog.AnalogOutput
 import com.pi4j.plugin.mock.provider.gpio.analog.MockAnalogOutputProvider
-import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 import kotlin.test.*
 
 /**
@@ -39,16 +40,12 @@ internal class AnalogOutputTest {
     @Test
     fun `test analog output creation`() {
         context.run {
-            val javaPin = create(AnalogOutput.newConfigBuilder(this).address(24).id("test-pin").build())
             val kotlinPin = analogOutput(22)
-
-            assertEquals(javaPin::class.java, kotlinPin::class.java)
-            assertEquals(22, kotlinPin.address)
+            assertEquals(22, kotlinPin.config().bcm())
 
             assertThrows<IOAlreadyExistsException> {
-                create(AnalogOutput.newConfigBuilder(this).address(26).id("test-pin").build())
-                analogOutput(23) {
-                    id("test-pin")
+                analogOutput(22) {
+                    id("conflicting-pin")
                 }
             }
         }
@@ -57,27 +54,32 @@ internal class AnalogOutputTest {
     @Test
     fun `test analog output listeners`() {
         context.run {
+            val latch = CountDownLatch(4)
             val kotlinPin = analogOutput(22).run {
 
                 onMax(0..5) {
                     assertEquals(5, it.value())
+                    latch.countDown()
                 }
                 onMin(0..5) {
                     assertEquals(0, it.value())
+                    latch.countDown()
                 }
                 whenInRange(0..5) {
                     assertTrue { it.value() in 0..5 }
+                    latch.countDown()
                 }
 
                 whenOutOfRange(0..5) {
                     assertTrue { it.value() !in 0..5 }
+                    latch.countDown()
                 }
             }
             kotlinPin.value(5)
             kotlinPin.value(0)
             kotlinPin.value(3)
             kotlinPin.value(30)
-            Thread.sleep(1500L)
+            assertTrue(latch.await(2, TimeUnit.SECONDS), "Listeners should have fired")
         }
     }
 

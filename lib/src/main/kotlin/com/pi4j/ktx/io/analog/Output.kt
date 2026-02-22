@@ -24,14 +24,14 @@ import com.pi4j.ktx.utils.Provider
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>) on 12/9/22
  */
 
-inline fun Context.analogOutput(address: Int, block: AnalogOutputConfigBuilder.() -> Unit): AnalogOutput =
+inline fun Context.analogOutput(bcm: Int, block: AnalogOutputConfigBuilder.() -> Unit): AnalogOutput =
     create(AnalogOutput.newConfigBuilder(this).run {
-        address(address)
+        bcm(bcm)
         block()
         build()
     })
 
-fun Context.analogOutput(address: Int): AnalogOutput = analogOutput(address) {}
+fun Context.analogOutput(bcm: Int): AnalogOutput = analogOutput(bcm) {}
 
 
 inline fun AnalogOutput.listen(crossinline block: (AnalogValueChangeEvent<*>) -> Unit) =

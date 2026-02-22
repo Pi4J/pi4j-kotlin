@@ -18,7 +18,6 @@ import com.pi4j.context.Context
 import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.gpio.digital.DigitalInput
 import com.pi4j.plugin.mock.provider.gpio.digital.MockDigitalInputProvider
-import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
@@ -40,14 +39,14 @@ internal class DigitalInputTest {
     @Test
     fun `test digital input creation`() {
         context.run {
-            val javaPin = create(DigitalInput.newConfigBuilder(this).address(24).id("test-pin").build())
+            val javaPin = create(DigitalInput.newConfigBuilder(this).bcm(24).id("test-pin").build())
             val kotlinPin = digitalInput(22)
 
             assertEquals(javaPin::class.java, kotlinPin::class.java)
-            assertEquals(22, kotlinPin.address)
+            assertEquals(22, kotlinPin.bcm())
 
             assertThrows<IOAlreadyExistsException> {
-                create(DigitalInput.newConfigBuilder(this).address(26).id("test-pin").build())
+                create(DigitalInput.newConfigBuilder(this).bcm(26).id("test-pin").build())
                 digitalInput(23) {
                     id("test-pin")
                 }

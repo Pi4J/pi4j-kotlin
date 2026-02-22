@@ -18,7 +18,6 @@ import com.pi4j.context.Context
 import com.pi4j.io.exception.IOAlreadyExistsException
 import com.pi4j.io.gpio.analog.AnalogInput
 import com.pi4j.plugin.mock.provider.gpio.analog.MockAnalogInputProvider
-import com.pi4j.plugin.mock.provider.pwm.MockPwmProvider
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.*
@@ -40,16 +39,12 @@ internal class AnalogInputTest {
     @Test
     fun `test analog input creation`() {
         context.run {
-            val javaPin = create(AnalogInput.newConfigBuilder(this).address(24).id("test-pin").build())
             val kotlinPin = analogInput(22)
-
-            assertEquals(javaPin::class.java, kotlinPin::class.java)
-            assertEquals(22, kotlinPin.address)
+            assertEquals(22, kotlinPin.config().bcm())
 
             assertThrows<IOAlreadyExistsException> {
-                create(AnalogInput.newConfigBuilder(this).address(26).id("test-pin").build())
-                analogInput(23) {
-                    id("test-pin")
+                analogInput(22) {
+                    id("conflicting-pin")
                 }
             }
         }

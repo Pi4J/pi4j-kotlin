@@ -1,6 +1,6 @@
 # Pi4J - Kotlin
 
-Kotlin Interface & DSL for [Pi4J V2](https://github.com/Pi4J/pi4j-v2)  
+Kotlin Interface & DSL for [Pi4J](https://github.com/Pi4J/pi4j)
 For Pi4J V1 Kotlin Bindings, check [Pi4K](https://github.com/mhashim6/Pi4K) (no longer supported).
 
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
@@ -9,7 +9,14 @@ For Pi4J V1 Kotlin Bindings, check [Pi4K](https://github.com/mhashim6/Pi4K) (no 
 ![GitHub Actions build state](https://github.com/pi4j/pi4j-kotlin/workflows/Build%20pi4j-kotlin/badge.svg)
 
 ## Documentation
-Full documentation can be found on the [website](https://pi4j.com/kotlin/kotlin-api-docs/)
+Full documentation can be found on the [website](https://www.pi4j.com/kotlin/)
+
+## Modules
+
+| Module | Artifact | Description |
+|--------|----------|-------------|
+| `lib` | `pi4j-ktx` | Core Kotlin DSL for Pi4J (digital/analog GPIO, PWM, I2C) |
+| `lib-serial` | `pi4j-ktx-serial` | Serial communication DSL wrapping [jSerialComm](https://fazecast.github.io/jSerialComm/) |
 
 ## Example
 
@@ -26,32 +33,58 @@ console {
   title("<-- The Pi4J Project -->", "Minimal Example project")
   pi4j {
     digitalInput(PIN_BUTTON) {
-        id("button")
-        name("Press button")
-        pull(PullResistance.PULL_DOWN)
-        debounce(3000L)
-        piGpioProvider()
-      }.onLow {
-        pressCount++
-        +"Button was pressed for the ${pressCount}th time"
-      }
+      id("button")
+      name("Press button")
+      pull(PullResistance.PULL_DOWN)
+      debounce(3000L)
+    }.onLow {
+      pressCount++
+      +"Button was pressed for the ${pressCount}th time"
     }
-    
+
     digitalOutput(PIN_LED) {
-        id("led")
-        name("LED Flasher")
-        shutdown(DigitalState.LOW)
-        initial(DigitalState.LOW)
-        piGpioProvider()
-      }.run {
-        while (pressCount < 5) {
-          +"LED ${state()}"
-          toggle()
-          sleep(500L / (pressCount + 1))
-        }
+      id("led")
+      name("LED Flasher")
+      shutdown(DigitalState.LOW)
+      initial(DigitalState.LOW)
+    }.run {
+      while (pressCount < 5) {
+        +"LED ${state()}"
+        toggle()
+        sleep(500L / (pressCount + 1))
       }
     }
   }
 }
 ```
 
+### Serial
+
+Serial communication is provided by the `pi4j-ktx-serial` module, which wraps [jSerialComm](https://fazecast.github.io/jSerialComm/) (independent of Pi4J core since serial was removed in Pi4J 4.0.0).
+
+**Gradle setup:**
+
+``` kotlin
+dependencies {
+  implementation("com.pi4j:pi4j-ktx-serial:4.0.0")
+  implementation("com.fazecast:jSerialComm:2.11.0")
+}
+```
+
+**Usage:**
+
+``` kotlin
+import com.pi4j.ktx.io.serial.serial
+import com.pi4j.ktx.io.serial.open
+
+serial("/dev/ttyS0") {
+  baudRate = 115200
+  dataBits = 8
+  // stopBits, parity, flowControl also available
+}.open {
+  // `this` is a jSerialComm SerialPort
+  // port is automatically closed when the block exits
+  outputStream.write("Hello\n".toByteArray())
+  val response = inputStream.bufferedReader().readLine()
+}
+```

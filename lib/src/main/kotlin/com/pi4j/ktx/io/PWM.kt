@@ -16,20 +16,31 @@ package com.pi4j.ktx.io
 import com.pi4j.context.Context
 import com.pi4j.io.pwm.Pwm
 import com.pi4j.io.pwm.PwmConfigBuilder
+import com.pi4j.io.pwm.PwmType
 import com.pi4j.ktx.utils.Provider
 
 /**
  * @author Muhammad Hashim (mhashim6) (<a href="https://mhashim6.me">https://mhashim6.me</a>)
  */
 
-inline fun Context.pwm(address: Int, block: PwmConfigBuilder.() -> Unit): Pwm =
+inline fun Context.pwm(bcm: Int, block: PwmConfigBuilder.() -> Unit): Pwm =
     create(PwmConfigBuilder.newInstance(this).run {
-        address(address)
+        bcm(bcm)
         block()
         build()
     })
 
-fun Context.pwm(address: Int): Pwm = pwm(address) {}
+fun Context.pwm(bcm: Int): Pwm = pwm(bcm) {}
+
+inline fun Context.pwm(chip: Int, channel: Int, block: PwmConfigBuilder.() -> Unit): Pwm =
+    create(PwmConfigBuilder.newInstance(this).run {
+        chip(chip)
+        channel(channel)
+        block()
+        build()
+    })
+
+fun Context.pwm(chip: Int, channel: Int): Pwm = pwm(chip, channel) {}
 
 
 fun PwmConfigBuilder.mockProvider() = apply {

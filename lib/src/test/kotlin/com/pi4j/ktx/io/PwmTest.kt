@@ -41,18 +41,26 @@ internal class PwmTest {
     @Test
     fun `test pwm creation`() {
         context.run {
-            val javaPin = create(PwmConfigBuilder.newInstance(this).address(24).id("test-pin").build())
+            val javaPin = create(PwmConfigBuilder.newInstance(this).bcm(24).id("test-pin").build())
             val kotlinPin = pwm(22)
 
             assertEquals(javaPin::class.java, kotlinPin::class.java)
-            assertEquals(22, kotlinPin.address)
+            assertEquals(22, kotlinPin.bcm)
 
             assertThrows<IOAlreadyExistsException> {
-                create(PwmConfigBuilder.newInstance(this).address(26).id("test-pin").build())
+                create(PwmConfigBuilder.newInstance(this).bcm(26).id("test-pin").build())
                 pwm(23) {
                     id("test-pin")
                 }
             }
+        }
+    }
+
+    @Test
+    fun `test hardware pwm creation`() {
+        context.run {
+            val kotlinPin = pwm(0, 1)
+            assertNotNull(kotlinPin)
         }
     }
 
