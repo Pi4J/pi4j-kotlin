@@ -1,6 +1,7 @@
 # Pi4J - Kotlin
 
-Kotlin Interface & DSL for [Pi4J](https://github.com/Pi4J/pi4j)
+Kotlin Interface & DSL for [Pi4J](https://github.com/Pi4J/pi4j).
+
 For Pi4J V1 Kotlin Bindings, check [Pi4K](https://github.com/mhashim6/Pi4K) (no longer supported).
 
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
@@ -9,6 +10,7 @@ For Pi4J V1 Kotlin Bindings, check [Pi4K](https://github.com/mhashim6/Pi4K) (no 
 ![GitHub Actions build state](https://github.com/pi4j/pi4j-kotlin/workflows/Build%20pi4j-kotlin/badge.svg)
 
 ## Documentation
+
 Full documentation can be found on the [website](https://www.pi4j.com/kotlin/)
 
 ## Modules
