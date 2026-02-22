@@ -1,19 +1,21 @@
 plugins {
     kotlin("jvm") version "2.3.0"
     `java-library`
-    `maven-publish`
+    id("io.github.sgtsilvio.gradle.maven-central-publishing") version "0.4.1"
+    id("io.github.sgtsilvio.gradle.metadata") version "0.6.0"
     signing
 }
 val libName = "pi4j-ktx"
+val pi4jVersion: String by rootProject.extra
 
 group = "com.pi4j"
+version = pi4jVersion
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    val pi4jVersion: String by rootProject.extra
     val slf4jVersion: String by rootProject.extra
     val kotlinCoroutinesVersion: String by rootProject.extra
     compileOnly("com.pi4j:pi4j-core:$pi4jVersion")
@@ -39,47 +41,34 @@ kotlin {
     jvmToolchain(25)
 }
 
-signing {
-    if (hasProperty("signingPassphrase")) {
-        val signingKey: String? by project
-        val signingPassphrase: String? by project
-        useInMemoryPgpKeys(signingKey, signingPassphrase)
-        sign(publishing.publications)
+metadata {
+    readableName = "Pi4J-Kotlin"
+    description = "Kotlin DSL for Pi4J V2"
+    license {
+        apache2()
+    }
+    developers {
+        register("mhashim6") {
+            fullName = "Muhammad Hashim"
+            email = "msg@mhashim6.me"
+        }
+    }
+    github {
+        org = "Pi4J"
+        repo = "pi4j-kotlin"
     }
 }
 
 publishing {
-    repositories {
-        mavenLocal {
-            name = "Local"
-            url = uri("file://${layout.buildDirectory.get().asFile}/local-repository")
-        }
-    }
     publications {
-        val pi4jVersion: String by rootProject.extra
-        create<MavenPublication>(libName) {
+        register<MavenPublication>("main") {
             groupId = "com.pi4j"
             artifactId = libName
-            version = pi4jVersion
             from(components["java"])
             pom {
-                version = pi4jVersion
-                artifactId = libName
-                name.set("pi4j-ktx")
-                description.set("Kotlin DSL for Pi4J V2")
-                url.set("https://github.com/Pi4J/pi4j-kotlin")
                 organization {
                     name.set("Pi4J")
                     url.set("https://pi4j.com")
-                }
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                issueManagement {
-                    url.set("https://github.com/Pi4J/pi4j-kotlin/issues")
                 }
                 developers {
                     developer {
@@ -94,14 +83,14 @@ publishing {
                         }
                     }
                 }
-                scm {
-                    connection.set("scm:git:git://github.com/Pi4J/pi4j-kotlin.git")
-                    developerConnection.set("scm:git:ssh://github.com:Pi4J:pi4j-kotlin.git")
-                    url.set("https://github.com/Pi4J/pi4j-kotlin/tree/master")
-                }
             }
         }
     }
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications["main"])
 }
 
 tasks.getByName<Test>("test") {

@@ -12,12 +12,12 @@ jobs:
           distribution: 'temurin'
           java-version: '25'
       - uses: gradle/actions/setup-gradle@v4
+      - name: Import GPG key
+        run: echo "${{ secrets.GPG_SIGNING_KEY }}" | gpg --batch --import
       - name: release project
         env:
-          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
-          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.GPG_SECRET }}
-          ORG_GRADLE_PROJECT_signingPassphrase: ${{ secrets.GPG_PASSPHRASE }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
         run: |
           ./gradlew build
-          ./gradlew publishPi4j-ktxPublicationToSonatypeRepository publishPi4j-ktx-serialPublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+          ./gradlew publishToMavenCentral
